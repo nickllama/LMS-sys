@@ -14,6 +14,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR / '.env')
@@ -42,6 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
+    'django_filters',
+
     'users',
     'materials',
 
@@ -160,7 +163,14 @@ AUTH_USER_MODEL = 'users.User'
 REST_FRAMEWORK = {
     # Use Django's standard 'django.contrib.auth' permissions,
     # or allow read-only access for unauthenticated users.
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
+    'DEFAULT_FILTER_BACKENDS': (
+            'django_filters.rest_framework.DjangoFilterBackend',
+
+    # 'DEFAULT_PERMISSION_CLASSES': (
+    #         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    # )
+    )
 }
+
+
+
