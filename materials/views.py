@@ -5,12 +5,14 @@ from materials.serializers import CourseSerializer, LessonSerializer
 
 
 class CourseViewSet(viewsets.ModelViewSet):
-    serializer_class = CourseSerializer
+    default_serializer = CourseSerializer
     queryset = Course.objects.all()
+    serializers_choice = {
+        'retrieve': CourseSerializer,
+    }
 
-
-class LessonCreateView(generics.CreateAPIView):
-    serializer_class = LessonSerializer
+    def get_serializer_class(self):
+        return self.serializers_choice.get(self.action, self.default_serializer)
 
 
 class LessonListView(generics.ListAPIView):
@@ -30,3 +32,7 @@ class LessonUpdateView(generics.UpdateAPIView):
 
 class LessonDestroyView(generics.DestroyAPIView):
     queryset = Lesson.objects.all()
+
+
+class LessonCreateApiView(generics.CreateAPIView):
+    serializer_class = LessonSerializer
