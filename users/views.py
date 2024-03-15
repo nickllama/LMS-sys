@@ -3,10 +3,15 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, generics
 
 from users.models import User, Payment
-from users.serializers import UserSerializer, PaymentSerializer
+from users.serializers import UserSerializer, PaymentSerializer, UserDetailSerializer
 
 
-class UserViewSet(viewsets.ModelViewSet):
+class UserDetailView(generics.RetrieveAPIView):
+    serializer_class = UserDetailSerializer
+    queryset = User.objects.all()
+
+
+class UserUpdateView(generics.UpdateAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()
 
