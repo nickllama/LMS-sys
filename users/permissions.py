@@ -1,11 +1,13 @@
 from rest_framework.permissions import BasePermission
 
+from users.models import UserRoles
+
 
 class IsModerator(BasePermission):
     message = "Доступно модераторам"
 
     def has_permission(self, request, view):
-        return request.user.groups.filter(name='moderator').exists()
+        return request.user.role == UserRoles.MODERATOR
 
 
 class IsOwner(BasePermission):

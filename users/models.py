@@ -4,12 +4,12 @@ from django.db import models
 from materials.models import Course, Lesson
 from services import NULLABLE
 
-
-def __str__(self):
-    return self.email
-
+class UserRoles(models.TextChoices):
+    MEMBER = 'member'
+    MODERATOR = 'moderator'
 
 class User(AbstractUser):
+    role = models.CharField(max_length=15, verbose_name='роль', choices=UserRoles.choices, default=UserRoles.MEMBER)
     username = None
     email = models.EmailField(unique=True, verbose_name='Почта')
 
@@ -19,6 +19,9 @@ class User(AbstractUser):
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
+
+    def __str__(self):
+        return self.email
 
 class Payment(models.Model):
     TYPE_PAYMENT = [('CASH', 'Наличка'), ('CARD', 'Оплата картой')]
