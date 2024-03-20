@@ -5,6 +5,10 @@ from materials.models import Course, Lesson
 from services import NULLABLE
 
 
+def __str__(self):
+    return self.email
+
+
 class User(AbstractUser):
     username = None
     email = models.EmailField(unique=True, verbose_name='Почта')
