@@ -86,8 +86,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'config.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
     'default': {
@@ -99,26 +97,7 @@ DATABASES = {
         'PORT': os.getenv('DATABASE_PORT')
     }
 }
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'LMS-sys',
-#         'USER': 'postgres',
-#         'PASSWORD': '1234',
-#         'HOST': 'localhost',
-#         'PORT': '5432'
-#     }
-# }
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': 'mydatabase', # This is where you put the name of the db file.
-#                  # If one doesn't exist, it will be created at migration time.
-#     }
-# }
 
-# Password validation
-# https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -166,12 +145,6 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
-    #  авторизация для всех эндпойнтов
-    # 'DEFAULT_PERMISSION_CLASSES': [
-    #     'rest_framework.permissions.IsAuthenticated',
-    # ],
-
-    #  авторизация для каждого эндпойнта пишется отдельно
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
     ],
