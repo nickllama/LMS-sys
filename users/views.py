@@ -8,7 +8,6 @@ from users.models import User, Payment
 from users.serializers import UserSerializer, PaymentSerializer, UserDetailSerializer
 
 
-
 class UserCreateView(generics.CreateAPIView):
     serializer_class = UserSerializer
 
@@ -56,5 +55,3 @@ class PaymentListView(generics.ListAPIView):
     search_fields = ('course', 'lesson', 'payment_method')
     ordering_fields = ('payment_date',)
     permission_classes = [IsAuthenticated]
-
-
