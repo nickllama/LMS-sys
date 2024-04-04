@@ -5,7 +5,6 @@ from rest_framework.fields import SerializerMethodField
 from materials.models import Course, Lesson
 from materials.validators import url_validator
 from users.models import Subscription
-from users.serializers import SubscriptionSerializer
 
 class LessonSerializer(serializers.ModelSerializer):
     """Базовый сериализатор урока"""
@@ -47,8 +46,15 @@ class CourseDetailSerializer(serializers.ModelSerializer):
     lessons_list = SerializerMethodField()
     is_subscribed = SerializerMethodField()
 
+    def user_(self):
+        """Получаем текущего пользователя"""
+        request = self.context.get('request', None)
+        if request:
+            return request.user
+        return None
+
     def get_is_subscribed(self, course):
-        return Subscription.objects.filter(course=course, user=user).exists()
+        return course.subscription_set.filter(user=self.user_()).exists()
 
         @staticmethod
         def get_lessons_count(course):
