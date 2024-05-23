@@ -6,9 +6,9 @@ from rest_framework.filters import OrderingFilter
 from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
+from django.conf import settings
 
 
-from config import settings
 from services import get_session
 from materials.models import Course
 from users.models import User, Payment, Subscription
