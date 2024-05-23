@@ -1,6 +1,7 @@
 from django.db import models
 from config import settings
-from services import NULLABLE
+
+NULLABLE = {'null': True, 'blank': True}
 
 
 class Course(models.Model):
@@ -8,6 +9,7 @@ class Course(models.Model):
     preview = models.ImageField(upload_to='materials/', verbose_name='Превью', **NULLABLE)
     description = models.TextField(verbose_name='Описание')
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='Владелец', **NULLABLE)
+    price = models.PositiveIntegerField(default=1000, verbose_name='Цена, руб.')
 
     def __str__(self):
         return f'{self.name}'
@@ -24,6 +26,7 @@ class Lesson(models.Model):
     url = models.URLField(verbose_name='Ссылка на видео', **NULLABLE)
     course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='Курс', related_name='lesson')
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='Владелец', **NULLABLE)
+    price = models.PositiveIntegerField(default=1000, verbose_name='Цена, руб.')
 
     def __str__(self):
         return f'Урок{self.name}, курс {self.course}'

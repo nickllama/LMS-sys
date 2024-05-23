@@ -1,8 +1,8 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-from materials.models import Course, Lesson
-from services import NULLABLE
+from materials.models import Course, Lesson, NULLABLE
+# from services import NULLABLE
 
 
 class UserRoles(models.TextChoices):
@@ -34,8 +34,13 @@ class Payment(models.Model):
                                verbose_name='Оплаченный курс', **NULLABLE)
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, related_name='payment',
                                verbose_name='Оплаченный урок', **NULLABLE)
-    amount_payment = models.PositiveIntegerField(verbose_name='сумма оплаты')
+    payment_amount = models.FloatField(verbose_name='Сумма платежа', **NULLABLE)
     type_payment = models.CharField(max_length=50,  verbose_name='способ оплаты', choices=TYPE_PAYMENT)
+    payment_status = models.CharField(default='unpaid', verbose_name='Статус оплаты')
+    payment_url = models.TextField(verbose_name='Ссылка на оплату', **NULLABLE)
+    session_id = models.CharField(max_length=255, verbose_name='id платежной сессии', **NULLABLE)
+    course = models.ForeignKey(Course, on_delete=models.DO_NOTHING, related_name='paid_course', **NULLABLE)
+    lesson = models.ForeignKey(Lesson, on_delete=models.DO_NOTHING, related_name='paid_lesson', **NULLABLE)
 
     class Meta:
         verbose_name = 'Оплата'

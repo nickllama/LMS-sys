@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'drf_yasg',
 
     'rest_framework',
     'django_filters',
@@ -157,4 +158,5 @@ SIMPLE_JWT = {
 }
 
 
-
+STRIPE_API_KEY = os.getenv('STRIPE_API_KEY')
+TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN')

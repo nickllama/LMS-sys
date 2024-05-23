@@ -30,3 +30,11 @@ class UserDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = '__all__'
+
+
+class PaymentCreateSerializer(serializers.ModelSerializer):
+    """Cериализатор для создания платежа"""
+
+    class Meta:
+        model = Payment
+        fields = ('payment_url')
